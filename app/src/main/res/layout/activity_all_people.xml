@@ -14,16 +14,11 @@
         android:id="@+id/material_search_bar"
         app:mt_hint="Enter the email"
         app:mt_maxSuggestionsCount="50"
-        app:mt_roundedSearchBarEnabled="true">
+       >
 
     </com.mancj.materialsearchbar.MaterialSearchBar>
 
-    <view
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        />
-    
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

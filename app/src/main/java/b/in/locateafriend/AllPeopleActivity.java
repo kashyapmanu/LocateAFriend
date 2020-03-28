@@ -1,22 +1,37 @@
 package b.in.locateafriend;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import b.in.locateafriend.Interface.IFirebaseLoadDone;
+import b.in.locateafriend.Interface.IRecyclerItemClickListener;
 import b.in.locateafriend.Model.User;
+import b.in.locateafriend.Utils.Common;
 import b.in.locateafriend.ViewHolder.UserViewHolder;
 
 public class AllPeopleActivity extends AppCompatActivity implements IFirebaseLoadDone {
@@ -93,23 +108,142 @@ public class AllPeopleActivity extends AppCompatActivity implements IFirebaseLoa
     }
 
     private void loadSearchData() {
+        Query query = FirebaseDatabase.getInstance().getReference().child(Common.USER_INFORMATION);
+        FirebaseRecyclerOptions<User> options = new FirebaseRecyclerOptions.Builder<User>()
+                .setQuery(query,User.class)
+                .build();
+
+
+        adapter = new FirebaseRecyclerAdapter<User, UserViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull UserViewHolder holder, int position, @NonNull User model) {
+                if(model.getEmail().equals(Common.loggedUser.getEmail())){
+                    holder.txt_user_email.setText(new StringBuilder(model.getEmail()).append(" (me)"));
+                    holder.txt_user_email.setTypeface(holder.txt_user_email.getTypeface(), Typeface.ITALIC);
+                }
+                else
+                {
+                    holder.txt_user_email.setText(new StringBuilder(model.getEmail()));
+                }
+                //Event
+                holder.setiRecyclerItemClickListener(new IRecyclerItemClickListener() {
+                    @Override
+                    public void onItemClickListener(View view, int position) {
+                        //Implement later
+                    }
+                });
+            }
+
+
+            @NonNull
+            @Override
+            public UserViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+                View itemView = LayoutInflater.from(viewGroup.getContext())
+                        .inflate(R.layout.layout_user,viewGroup,false);
+                return new UserViewHolder(itemView);
+            }
+        };
+        //Its here dumb ass and don't forget later
+        adapter.startListening();
+        recycler_all_user.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onStop() {
+        if(adapter!=null){
+            adapter.stopListening();
+        }
+        if(searchAdapter!=null){
+            searchAdapter.stopListening();
+        }
+        super.onStop();
+    }
+
+    protected void onResume() {
+        super.onResume();
+        if(adapter!=null)
+        {
+            adapter.startListening();
+        }
+        if(searchAdapter!=null){
+            searchAdapter.startListening();
+        }
     }
 
     private void loadUserList() {
+        final List<String> lstUserEmail = new ArrayList<>();
+        DatabaseReference userList = FirebaseDatabase.getInstance().getReference(Common.USER_INFORMATION);
+        userList.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot userSnapshot:dataSnapshot.getChildren()){
+                    User user = userSnapshot.getValue(User.class);
+                    lstUserEmail.add(user.getEmail());
+                }
+                firebaseLoadDone.onFirebaseLoadUserNameDone(lstUserEmail);
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                firebaseLoadDone.onFirebaseLoadFailed(databaseError.getMessage());
+            }
+        });
     }
 
-    private void startSearch(String toString) {
+    private void startSearch(String text_Search) {
+        Query query = FirebaseDatabase.getInstance()
+                .getReference(Common.USER_INFORMATION)
+                .orderByChild("name")
+                .startAt(text_Search);
+
+        FirebaseRecyclerOptions<User> options = new FirebaseRecyclerOptions.Builder<User>()
+                .setQuery(query,User.class)
+                .build();
+
+
+        searchAdapter = new FirebaseRecyclerAdapter<User, UserViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull UserViewHolder holder, int position, @NonNull User model) {
+                if(model.getEmail().equals(Common.loggedUser.getEmail())){
+                    holder.txt_user_email.setText(new StringBuilder(model.getEmail()).append(" (me)"));
+                    holder.txt_user_email.setTypeface(holder.txt_user_email.getTypeface(), Typeface.ITALIC);
+                }
+                else
+                {
+                    holder.txt_user_email.setText(new StringBuilder(model.getEmail()));
+                }
+                //Event
+                holder.setiRecyclerItemClickListener(new IRecyclerItemClickListener() {
+                    @Override
+                    public void onItemClickListener(View view, int position) {
+                        //Implement later
+                    }
+                });
+            }
+
+
+            @NonNull
+            @Override
+            public UserViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+                View itemView = LayoutInflater.from(viewGroup.getContext())
+                        .inflate(R.layout.layout_user,viewGroup,false);
+                return new UserViewHolder(itemView);
+            }
+        };
+        //Its here dumb ass and don't forget later
+        searchAdapter.startListening();
+        recycler_all_user.setAdapter(searchAdapter);
+
 
     }
 
     @Override
     public void onFirebaseLoadUserNameDone(List<String> lstEmail) {
-
+        searchBar.setLastSuggestions(lstEmail);
     }
 
     @Override
     public void onFirebaseLoadFailed(String message) {
-
+        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
     }
 }

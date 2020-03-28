@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Toast;
 
@@ -42,10 +44,14 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference user_information;
     private  static final int MY_REQUEST_CODE = 1234;
     List<AuthUI.IdpConfig> providers;
+    private boolean Islogin = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
+
+
 
         Paper.init(this);
 
@@ -55,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         //Initialise provider
         providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build()
-                //new AuthUI.IdpConfig.GoogleBuilder().build()
+
         );
 
         //Request permission for location
@@ -64,7 +70,18 @@ public class MainActivity extends AppCompatActivity {
                 .withListener(new PermissionListener() {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse response) {
-                        showSignInOptions();
+                        //oi
+                        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        boolean Islogin = prefs.getBoolean("Islogin", false);
+
+                        //if(Islogin)
+                        //{   // condition true means user is already login
+                           // startActivity(new Intent(MainActivity.this,HomeActivity.class));
+                            //finish();
+
+                        //}
+                        //else
+                            showSignInOptions();
 
                     }
 
@@ -82,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showSignInOptions() {
+
+
         startActivityForResult(AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
@@ -133,7 +152,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupUI() {
-        startActivity(new Intent(MainActivity.this,Welcome.class));
+        //oi
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs.edit().putBoolean("Islogin", Islogin).commit(); // islogin is a boolean value of your login status
+
+        startActivity(new Intent(MainActivity.this,HomeActivity.class));
         finish();
     }
 

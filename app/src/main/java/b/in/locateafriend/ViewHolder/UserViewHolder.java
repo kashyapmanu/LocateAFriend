@@ -10,7 +10,7 @@ import b.in.locateafriend.Interface.IRecyclerItemClickListener;
 import b.in.locateafriend.R;
 
 public class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    TextView txt_user_email;
+    public TextView txt_user_email;
     IRecyclerItemClickListener iRecyclerItemClickListener;
 
     public void setiRecyclerItemClickListener(IRecyclerItemClickListener iRecyclerItemClickListener) {
