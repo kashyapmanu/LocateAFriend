@@ -9,14 +9,21 @@
     tools:context=".AllPeopleActivity">
 
     <com.mancj.materialsearchbar.MaterialSearchBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/material_search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
         app:mt_hint="Enter the email"
-        app:mt_maxSuggestionsCount="50"
-       >
+        app:mt_maxSuggestionsCount="50">
 
     </com.mancj.materialsearchbar.MaterialSearchBar>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="All Users"
+        android:textStyle="bold"
+        android:layout_margin="5dp"
+        android:layout_gravity="center"/>
 
 
     <androidx.recyclerview.widget.RecyclerView
