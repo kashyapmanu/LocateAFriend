@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefs.edit().putBoolean("Islogin", Islogin).commit(); // islogin is a boolean value of your login status
 
-        startActivity(new Intent(MainActivity.this,HomeActivity.class));
+        startActivity(new Intent(MainActivity.this,Welcome.class));
         finish();
     }
 

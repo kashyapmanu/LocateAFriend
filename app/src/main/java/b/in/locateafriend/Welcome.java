@@ -18,4 +18,10 @@ public class Welcome extends AppCompatActivity {
         startActivity(new Intent(Welcome.this,HomeActivity.class));
         finish();
     }
+
+
+    public void startApp(View view) {
+        startActivity(new Intent(Welcome.this,HomeActivity.class));
+
+    }
 }

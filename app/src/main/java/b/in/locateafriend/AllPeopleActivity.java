@@ -52,6 +52,7 @@ public class AllPeopleActivity extends AppCompatActivity implements IFirebaseLoa
     IFirebaseLoadDone firebaseLoadDone;
     MaterialSearchBar searchBar;
     List<String> suggestList = new ArrayList<>();
+
     IFCMService ifcmService;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 

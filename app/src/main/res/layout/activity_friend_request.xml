@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="8dp"
     android:orientation="vertical"
-    tools:context=".HomeActivity">
+    tools:context=".FriendRequestActivity">
 
     <com.mancj.materialsearchbar.MaterialSearchBar
         android:id="@+id/material_search_bar"

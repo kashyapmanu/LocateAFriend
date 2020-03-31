@@ -6,103 +6,98 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="384dp"
-        android:layout_height="699dp"
+        android:layout_width="377dp"
+        android:layout_height="698dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Dear User" />
+            android:text="Dear User"
+            android:layout_gravity="center"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="These are the  intial builds and thus lack many feature and contains some bugs that may cause inconvenience to you" />
+            android:text="These are the  intial builds and thus lack many feature and contains some bugs that may cause inconvenience to you"
+            />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="We apologise for the inconvenience cause and request your feedback"
             android:padding="5dp"
-            android:text="We apologise for the inconvenience caused and request your feedback"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textColor="@color/colorPrimaryDark"
+            />
+
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pre-release: V0.1.5" />
+            android:text="Pre-release: V0.1.5"/>
+
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="* Location Sharing Added" />
+            android:text="* Location Sharing Added"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-----------------------------" />
+            android:text="-----------------------------"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pre-release: V0.1.5" />
+            android:text="Pre-release: V0.1.5"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="* Managing Friend Request Added" />
+            android:text="* Managing Friend Request Added"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-----------------------------" />
+            android:text="-----------------------------"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pre-release: V0.1.3" />
+            android:text="Pre-release: V0.1.3"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="* Finding people on server added" />
+            android:text="* Finding people on server added"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-----------------------------" />
+            android:text="-----------------------------"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pre-release: V0.1.2" />
+            android:text="Pre-release: V0.1.2"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="* Authentication builder added" />
+            android:text="* Authentication builder added"/>
 
-
-
-        <Button
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="80dp"
-            android:onClick="startApp"
-            android:text="Start"
-            android:textColor="@color/colorPrimaryDark" />
+            android:text="-----------------------------"/>
 
     </LinearLayout>
-
 </RelativeLayout>

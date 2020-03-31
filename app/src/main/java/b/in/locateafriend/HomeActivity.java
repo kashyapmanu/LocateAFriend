@@ -1,10 +1,17 @@
 package b.in.locateafriend;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,11 +65,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         setNavigationViewListener();
 
-
-
+        View headerView = navigationView.getHeaderView(0);
+        TextView txt_User_logged = (TextView)headerView.findViewById(R.id.txt_logged_email);
+        txt_User_logged.setText(Common.loggedUser.getEmail());
 
 
     }
+
+
+
     @Override
     public void onBackPressed() {
         if (this.drawer.isDrawerOpen(GravityCompat.START)) {
@@ -95,7 +106,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 break;
             }
             case R.id.nav_add_people:{
-
+                startActivity(new Intent(HomeActivity.this,FriendRequestActivity.class));
+                break;
             }
             case R.id.nav_sign_out:{
 
