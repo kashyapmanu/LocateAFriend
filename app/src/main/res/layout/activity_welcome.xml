@@ -6,16 +6,18 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="384dp"
-        android:layout_height="699dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
         android:layout_marginRight="16dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+
+        >
 
         <TextView
             android:layout_width="wrap_content"
@@ -26,6 +28,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
             android:text="These are the  intial builds and thus lack many feature and contains some bugs that may cause inconvenience to you" />
 
         <TextView
@@ -39,66 +42,95 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
             android:text="Pre-release: V0.1.5" />
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="* Location Sharing Added" />
+            android:paddingLeft="20dp"
+            android:text="* Location Sharing Added\n*Bug: Smart Lock doesnt word on Android 10, Error Code:10" />
 
         <TextView
             android:layout_width="wrap_content"
+            android:paddingLeft="20dp"
             android:layout_height="wrap_content"
             android:text="-----------------------------" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
             android:text="Pre-release: V0.1.5" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
             android:text="* Managing Friend Request Added" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
             android:text="-----------------------------" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
             android:text="Pre-release: V0.1.3" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
             android:text="* Finding people on server added" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
             android:text="-----------------------------" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
             android:text="Pre-release: V0.1.2" />
 
         <TextView
             android:layout_width="wrap_content"
+            android:paddingLeft="20dp"
             android:layout_height="wrap_content"
             android:text="* Authentication builder added" />
 
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Note:"
+            android:layout_marginTop="5dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_red_dark"
+            android:paddingLeft="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:text="-->Please turn on Location\n->Finding people and managing friend request are accessible throught the navigation drawer.\n->Click the 3 stripes at the top left corner."
+            />
 
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="80dp"
+            android:layout_marginTop="30dp"
             android:onClick="startApp"
             android:text="Start"
             android:textColor="@color/colorPrimaryDark" />

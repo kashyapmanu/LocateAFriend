@@ -108,7 +108,52 @@ public class FriendRequestActivity extends AppCompatActivity implements IFirebas
         loadSearchData();
     }
 
-    private void startSearch(String toString) {
+    private void startSearch(String search_value) {
+        Query query = FirebaseDatabase.getInstance().getReference().child(Common.USER_INFORMATION)
+                .child(Common.loggedUser.getUid())
+                .child(Common.FRIEND_REQUEST)
+                .orderByChild("name")
+                .startAt(search_value);
+
+        FirebaseRecyclerOptions<User> options = new FirebaseRecyclerOptions.Builder<User>()
+                .setQuery(query,User.class)
+                .build();
+
+        searchAdapter = new FirebaseRecyclerAdapter<User, FriendRequestViewHolder>(options ) {
+            @Override
+            protected void onBindViewHolder(@NonNull FriendRequestViewHolder holder, int position, @NonNull User model) {
+
+                holder.txt_user_email.setText(model.getEmail());
+                holder.btn_accept.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        deleteFriendRequest(model,false);
+                        addToAcceptList(model);
+                        addUserToFriendContact(model);
+                    }
+                });
+                holder.btn_decline.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //Delete
+                        deleteFriendRequest(model,true);
+                    }
+                });
+
+
+            }
+
+            @NonNull
+            @Override
+            public FriendRequestViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+                View itemView = LayoutInflater.from(viewGroup.getContext())
+                        .inflate(R.layout.layout_friend_request,viewGroup,false);
+                return new FriendRequestViewHolder(itemView);
+            }
+        };
+
+        searchAdapter.startListening();
+        recycler_all_user.setAdapter(searchAdapter);
     }
 
     private void loadFriendRequestList() {
