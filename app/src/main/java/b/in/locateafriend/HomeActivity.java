@@ -377,7 +377,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 break;
             }
             case R.id.nav_sign_out:{
-
+                Toast.makeText(this, "You will automatically sign out when you clear the app from memory", Toast.LENGTH_SHORT).show();
             }
         }
         return true;
