@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
-    android:orientation="vertical"
     android:layout_marginTop="50dp"
+    android:orientation="vertical"
+    android:padding="8dp"
     tools:context=".HomeActivity">
-
 
 
     <com.mancj.materialsearchbar.MaterialSearchBar
@@ -23,18 +22,16 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="All Friends"
-        android:textStyle="bold"
+        android:layout_gravity="center"
         android:layout_margin="5dp"
-        android:layout_gravity="center"/>
-
+        android:text="All Friends"
+        android:textStyle="bold" />
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/recycler_friend_list"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <fragment
         android:id="@+id/nav_host_fragment"
@@ -45,7 +42,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/mobile_navigation" >
+        app:navGraph="@navigation/mobile_navigation">
 
 
     </fragment>

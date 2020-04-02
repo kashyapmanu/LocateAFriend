@@ -3,11 +3,10 @@ package b.in.locateafriend.Model;
 import java.util.HashMap;
 
 public class User {
-    private String uid,email;
-    private HashMap<String,User> acceptList;
+    private String uid, email;
+    private HashMap<String, User> acceptList;
 
-    public User()
-    {
+    public User() {
 
     }
 

@@ -15,13 +15,13 @@ public class Welcome extends AppCompatActivity {
     }
 
     public void GoToHome(View view) {
-        startActivity(new Intent(Welcome.this,HomeActivity.class));
+        startActivity(new Intent(Welcome.this, HomeActivity.class));
         finish();
     }
 
 
     public void startApp(View view) {
-        startActivity(new Intent(Welcome.this,HomeActivity.class));
+        startActivity(new Intent(Welcome.this, HomeActivity.class));
 
     }
 }

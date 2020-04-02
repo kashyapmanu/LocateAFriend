@@ -47,7 +47,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class AllPeopleActivity extends AppCompatActivity implements IFirebaseLoadDone {
 
-    FirebaseRecyclerAdapter<User, UserViewHolder> adapter,searchAdapter;
+    FirebaseRecyclerAdapter<User, UserViewHolder> adapter, searchAdapter;
     RecyclerView recycler_all_user;
     IFirebaseLoadDone firebaseLoadDone;
     MaterialSearchBar searchBar;
@@ -77,8 +77,8 @@ public class AllPeopleActivity extends AppCompatActivity implements IFirebaseLoa
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 List<String> suggest = new ArrayList<>();
-                for(String search:suggestList){
-                    if(search.toLowerCase().contains(searchBar.getText().toLowerCase())){
+                for (String search : suggestList) {
+                    if (search.toLowerCase().contains(searchBar.getText().toLowerCase())) {
                         suggest.add(search);
                     }
                 }
@@ -93,8 +93,8 @@ public class AllPeopleActivity extends AppCompatActivity implements IFirebaseLoa
         searchBar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
             @Override
             public void onSearchStateChanged(boolean enabled) {
-                if(!enabled){
-                    if(adapter!=null){
+                if (!enabled) {
+                    if (adapter != null) {
                         recycler_all_user.setAdapter(adapter);
                     }
                 }
@@ -116,7 +116,7 @@ public class AllPeopleActivity extends AppCompatActivity implements IFirebaseLoa
         recycler_all_user.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recycler_all_user.setLayoutManager(layoutManager);
-        recycler_all_user.addItemDecoration(new DividerItemDecoration(this,((LinearLayoutManager)layoutManager).getOrientation()));
+        recycler_all_user.addItemDecoration(new DividerItemDecoration(this, ((LinearLayoutManager) layoutManager).getOrientation()));
 
         firebaseLoadDone = this;
 
@@ -129,19 +129,17 @@ public class AllPeopleActivity extends AppCompatActivity implements IFirebaseLoa
     private void loadSearchData() {
         Query query = FirebaseDatabase.getInstance().getReference().child(Common.USER_INFORMATION);
         FirebaseRecyclerOptions<User> options = new FirebaseRecyclerOptions.Builder<User>()
-                .setQuery(query,User.class)
+                .setQuery(query, User.class)
                 .build();
 
 
         adapter = new FirebaseRecyclerAdapter<User, UserViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull UserViewHolder holder, int position, @NonNull User model) {
-                if(model.getEmail().equals(Common.loggedUser.getEmail())){
+                if (model.getEmail().equals(Common.loggedUser.getEmail())) {
                     holder.txt_user_email.setText(new StringBuilder(model.getEmail()).append(" (me)"));
                     holder.txt_user_email.setTypeface(holder.txt_user_email.getTypeface(), Typeface.ITALIC);
-                }
-                else
-                {
+                } else {
                     holder.txt_user_email.setText(new StringBuilder(model.getEmail()));
                 }
                 //Event
@@ -160,7 +158,7 @@ public class AllPeopleActivity extends AppCompatActivity implements IFirebaseLoa
             @Override
             public UserViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
                 View itemView = LayoutInflater.from(viewGroup.getContext())
-                        .inflate(R.layout.layout_user,viewGroup,false);
+                        .inflate(R.layout.layout_user, viewGroup, false);
                 return new UserViewHolder(itemView);
             }
         };
@@ -171,10 +169,10 @@ public class AllPeopleActivity extends AppCompatActivity implements IFirebaseLoa
 
     @Override
     protected void onStop() {
-        if(adapter!=null){
+        if (adapter != null) {
             adapter.stopListening();
         }
-        if(searchAdapter!=null){
+        if (searchAdapter != null) {
             searchAdapter.stopListening();
         }
         compositeDisposable.clear();
@@ -183,11 +181,10 @@ public class AllPeopleActivity extends AppCompatActivity implements IFirebaseLoa
 
     protected void onResume() {
         super.onResume();
-        if(adapter!=null)
-        {
+        if (adapter != null) {
             adapter.startListening();
         }
-        if(searchAdapter!=null){
+        if (searchAdapter != null) {
             searchAdapter.startListening();
         }
     }
@@ -198,7 +195,7 @@ public class AllPeopleActivity extends AppCompatActivity implements IFirebaseLoa
         userList.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot userSnapshot:dataSnapshot.getChildren()){
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     User user = userSnapshot.getValue(User.class);
                     lstUserEmail.add(user.getEmail());
                 }
@@ -219,19 +216,17 @@ public class AllPeopleActivity extends AppCompatActivity implements IFirebaseLoa
                 .startAt(text_Search);
 
         FirebaseRecyclerOptions<User> options = new FirebaseRecyclerOptions.Builder<User>()
-                .setQuery(query,User.class)
+                .setQuery(query, User.class)
                 .build();
 
 
         searchAdapter = new FirebaseRecyclerAdapter<User, UserViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull UserViewHolder holder, int position, @NonNull final User model) {
-                if(model.getEmail().equals(Common.loggedUser.getEmail())){
+                if (model.getEmail().equals(Common.loggedUser.getEmail())) {
                     holder.txt_user_email.setText(new StringBuilder(model.getEmail()).append(" (me)"));
                     holder.txt_user_email.setTypeface(holder.txt_user_email.getTypeface(), Typeface.ITALIC);
-                }
-                else
-                {
+                } else {
                     holder.txt_user_email.setText(new StringBuilder(model.getEmail()));
                 }
                 //Event
@@ -252,7 +247,7 @@ public class AllPeopleActivity extends AppCompatActivity implements IFirebaseLoa
             @Override
             public UserViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
                 View itemView = LayoutInflater.from(viewGroup.getContext())
-                        .inflate(R.layout.layout_user,viewGroup,false);
+                        .inflate(R.layout.layout_user, viewGroup, false);
                 return new UserViewHolder(itemView);
             }
         };
@@ -264,9 +259,9 @@ public class AllPeopleActivity extends AppCompatActivity implements IFirebaseLoa
     }
 
     private void showDialogRequest(final User model) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this,R.style.MyRequestDialog);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this, R.style.MyRequestDialog);
         alertDialog.setTitle("Friend Request");
-        alertDialog.setMessage("Do you want to send friend request to: "+model.getEmail());
+        alertDialog.setMessage("Do you want to send friend request to: " + model.getEmail());
         alertDialog.setIcon(R.drawable.ic_account_circle_black_24dp);
 
         alertDialog.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -289,11 +284,10 @@ public class AllPeopleActivity extends AppCompatActivity implements IFirebaseLoa
                         .addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if(dataSnapshot.getValue() == null) {
+                                if (dataSnapshot.getValue() == null) {
                                     //Toast.makeText(AllPeopleActivity.this, "test", Toast.LENGTH_SHORT).show();
                                     sendFriendRequest(model);
-                                }
-                                else
+                                } else
                                     Toast.makeText(AllPeopleActivity.this, "You guys are already friends :)", Toast.LENGTH_SHORT).show();
                             }
 
@@ -317,39 +311,38 @@ public class AllPeopleActivity extends AppCompatActivity implements IFirebaseLoa
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.getValue() == null)
+                        if (dataSnapshot.getValue() == null)
                             Toast.makeText(AllPeopleActivity.this, "Token Error", Toast.LENGTH_SHORT).show();
-                        else
-                        {
+                        else {
                             //Create Request
                             Request request = new Request();
 
                             //create data
-                            Map<String,String> dataSend = new HashMap<>();
-                            dataSend.put(Common.FROM_UID,Common.loggedUser.getUid());
-                            dataSend.put(Common.FROM_NAME,Common.loggedUser.getEmail());
-                            dataSend.put(Common.TO_UID,model.getUid());
-                            dataSend.put(Common.TO_NAME,model.getEmail());
+                            Map<String, String> dataSend = new HashMap<>();
+                            dataSend.put(Common.FROM_UID, Common.loggedUser.getUid());
+                            dataSend.put(Common.FROM_NAME, Common.loggedUser.getEmail());
+                            dataSend.put(Common.TO_UID, model.getUid());
+                            dataSend.put(Common.TO_NAME, model.getEmail());
 
                             request.setTo(dataSnapshot.child(model.getUid()).getValue(String.class));
                             request.setData(dataSend);
 
                             //Sending
                             compositeDisposable.add(ifcmService.sendFriendRequestToUser(request)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(new Consumer<MyResponse>() {
-                                @Override
-                                public void accept(MyResponse myResponse) throws Exception {
-                                    if(myResponse.success == 1)
-                                        Toast.makeText(AllPeopleActivity.this, "Request Sent", Toast.LENGTH_SHORT).show();
-                                }
-                            }, new Consumer<Throwable>() {
-                                @Override
-                                public void accept(Throwable throwable) throws Exception {
-                                    Toast.makeText(AllPeopleActivity.this,throwable.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            }));
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(new Consumer<MyResponse>() {
+                                        @Override
+                                        public void accept(MyResponse myResponse) throws Exception {
+                                            if (myResponse.success == 1)
+                                                Toast.makeText(AllPeopleActivity.this, "Request Sent", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }, new Consumer<Throwable>() {
+                                        @Override
+                                        public void accept(Throwable throwable) throws Exception {
+                                            Toast.makeText(AllPeopleActivity.this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }));
                         }
                     }
 
@@ -367,6 +360,6 @@ public class AllPeopleActivity extends AppCompatActivity implements IFirebaseLoa
 
     @Override
     public void onFirebaseLoadFailed(String message) {
-        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

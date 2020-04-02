@@ -20,14 +20,14 @@ public class NotificationHelper extends ContextWrapper {
 
     public NotificationHelper(Context base) {
         super(base);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             createChannel();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void createChannel() {
         NotificationChannel appChannel = new NotificationChannel(APP_CHANNEL_ID,
-                APP_CHANNEL_NAME,NotificationManager.IMPORTANCE_DEFAULT);
+                APP_CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
         appChannel.enableLights(false);
         appChannel.enableVibration(true);
         appChannel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
@@ -37,7 +37,7 @@ public class NotificationHelper extends ContextWrapper {
     }
 
     public NotificationManager getManager() {
-        if(manager == null){
+        if (manager == null) {
             manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         }
         return manager;
@@ -45,7 +45,7 @@ public class NotificationHelper extends ContextWrapper {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public Notification.Builder getRealTimeTrackingNotification(String title, String content, Uri defaultSound) {
-        return new Notification.Builder(getApplicationContext(),APP_CHANNEL_ID)
+        return new Notification.Builder(getApplicationContext(), APP_CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_launcher_round)
                 .setContentTitle(title)
                 .setContentText(content)

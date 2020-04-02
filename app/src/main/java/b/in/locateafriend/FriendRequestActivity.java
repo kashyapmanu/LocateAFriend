@@ -36,7 +36,7 @@ import b.in.locateafriend.ViewHolder.UserViewHolder;
 public class FriendRequestActivity extends AppCompatActivity implements IFirebaseLoadDone {
 
 
-    FirebaseRecyclerAdapter<User, FriendRequestViewHolder> adapter,searchAdapter;
+    FirebaseRecyclerAdapter<User, FriendRequestViewHolder> adapter, searchAdapter;
     RecyclerView recycler_all_user;
     IFirebaseLoadDone firebaseLoadDone;
     MaterialSearchBar searchBar;
@@ -61,8 +61,8 @@ public class FriendRequestActivity extends AppCompatActivity implements IFirebas
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 List<String> suggest = new ArrayList<>();
-                for(String search:suggestList){
-                    if(search.toLowerCase().contains(searchBar.getText().toLowerCase())){
+                for (String search : suggestList) {
+                    if (search.toLowerCase().contains(searchBar.getText().toLowerCase())) {
                         suggest.add(search);
                     }
                 }
@@ -77,8 +77,8 @@ public class FriendRequestActivity extends AppCompatActivity implements IFirebas
         searchBar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
             @Override
             public void onSearchStateChanged(boolean enabled) {
-                if(!enabled){
-                    if(adapter!=null){
+                if (!enabled) {
+                    if (adapter != null) {
                         recycler_all_user.setAdapter(adapter);
                     }
                 }
@@ -100,7 +100,7 @@ public class FriendRequestActivity extends AppCompatActivity implements IFirebas
         recycler_all_user.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recycler_all_user.setLayoutManager(layoutManager);
-        recycler_all_user.addItemDecoration(new DividerItemDecoration(this,((LinearLayoutManager)layoutManager).getOrientation()));
+        recycler_all_user.addItemDecoration(new DividerItemDecoration(this, ((LinearLayoutManager) layoutManager).getOrientation()));
 
         firebaseLoadDone = this;
 
@@ -116,10 +116,10 @@ public class FriendRequestActivity extends AppCompatActivity implements IFirebas
                 .startAt(search_value);
 
         FirebaseRecyclerOptions<User> options = new FirebaseRecyclerOptions.Builder<User>()
-                .setQuery(query,User.class)
+                .setQuery(query, User.class)
                 .build();
 
-        searchAdapter = new FirebaseRecyclerAdapter<User, FriendRequestViewHolder>(options ) {
+        searchAdapter = new FirebaseRecyclerAdapter<User, FriendRequestViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull FriendRequestViewHolder holder, int position, @NonNull User model) {
 
@@ -127,7 +127,7 @@ public class FriendRequestActivity extends AppCompatActivity implements IFirebas
                 holder.btn_accept.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        deleteFriendRequest(model,false);
+                        deleteFriendRequest(model, false);
                         addToAcceptList(model);
                         addUserToFriendContact(model);
                     }
@@ -136,7 +136,7 @@ public class FriendRequestActivity extends AppCompatActivity implements IFirebas
                     @Override
                     public void onClick(View view) {
                         //Delete
-                        deleteFriendRequest(model,true);
+                        deleteFriendRequest(model, true);
                     }
                 });
 
@@ -147,7 +147,7 @@ public class FriendRequestActivity extends AppCompatActivity implements IFirebas
             @Override
             public FriendRequestViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
                 View itemView = LayoutInflater.from(viewGroup.getContext())
-                        .inflate(R.layout.layout_friend_request,viewGroup,false);
+                        .inflate(R.layout.layout_friend_request, viewGroup, false);
                 return new FriendRequestViewHolder(itemView);
             }
         };
@@ -162,10 +162,10 @@ public class FriendRequestActivity extends AppCompatActivity implements IFirebas
                 .child(Common.FRIEND_REQUEST);
 
         FirebaseRecyclerOptions<User> options = new FirebaseRecyclerOptions.Builder<User>()
-                .setQuery(query,User.class)
+                .setQuery(query, User.class)
                 .build();
 
-        adapter = new FirebaseRecyclerAdapter<User, FriendRequestViewHolder>(options ) {
+        adapter = new FirebaseRecyclerAdapter<User, FriendRequestViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull FriendRequestViewHolder holder, int position, @NonNull User model) {
 
@@ -173,7 +173,7 @@ public class FriendRequestActivity extends AppCompatActivity implements IFirebas
                 holder.btn_accept.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        deleteFriendRequest(model,false);
+                        deleteFriendRequest(model, false);
                         addToAcceptList(model);
                         addUserToFriendContact(model);
                     }
@@ -182,7 +182,7 @@ public class FriendRequestActivity extends AppCompatActivity implements IFirebas
                     @Override
                     public void onClick(View view) {
                         //Delete
-                        deleteFriendRequest(model,true);
+                        deleteFriendRequest(model, true);
                     }
                 });
 
@@ -193,7 +193,7 @@ public class FriendRequestActivity extends AppCompatActivity implements IFirebas
             @Override
             public FriendRequestViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
                 View itemView = LayoutInflater.from(viewGroup.getContext())
-                        .inflate(R.layout.layout_friend_request,viewGroup,false);
+                        .inflate(R.layout.layout_friend_request, viewGroup, false);
                 return new FriendRequestViewHolder(itemView);
             }
         };
@@ -225,14 +225,14 @@ public class FriendRequestActivity extends AppCompatActivity implements IFirebas
 
     @Override
     protected void onStop() {
-        if(adapter!=null)
+        if (adapter != null)
             adapter.stopListening();
-        if(searchAdapter!=null)
+        if (searchAdapter != null)
             searchAdapter.stopListening();
         super.onStop();
     }
 
-    private void deleteFriendRequest(final User model,final boolean isShowMessage) {
+    private void deleteFriendRequest(final User model, final boolean isShowMessage) {
         DatabaseReference friendRequest = FirebaseDatabase.getInstance()
                 .getReference(Common.USER_INFORMATION)
                 .child(Common.loggedUser.getUid())
@@ -242,22 +242,22 @@ public class FriendRequestActivity extends AppCompatActivity implements IFirebas
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        if(isShowMessage)
+                        if (isShowMessage)
                             Toast.makeText(FriendRequestActivity.this, "Removed!", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
-    private void loadSearchData(){
+    private void loadSearchData() {
         Query query = FirebaseDatabase.getInstance().getReference().child(Common.USER_INFORMATION)
                 .child(Common.loggedUser.getUid())
                 .child(Common.FRIEND_REQUEST);
 
         FirebaseRecyclerOptions<User> options = new FirebaseRecyclerOptions.Builder<User>()
-                .setQuery(query,User.class)
+                .setQuery(query, User.class)
                 .build();
 
-        searchAdapter = new FirebaseRecyclerAdapter<User, FriendRequestViewHolder>(options ) {
+        searchAdapter = new FirebaseRecyclerAdapter<User, FriendRequestViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull FriendRequestViewHolder holder, int position, @NonNull User model) {
 
@@ -265,7 +265,7 @@ public class FriendRequestActivity extends AppCompatActivity implements IFirebas
                 holder.btn_accept.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        deleteFriendRequest(model,false);
+                        deleteFriendRequest(model, false);
                         addToAcceptList(model);
                         addUserToFriendContact(model);
                     }
@@ -274,7 +274,7 @@ public class FriendRequestActivity extends AppCompatActivity implements IFirebas
                     @Override
                     public void onClick(View view) {
                         //Delete
-                        deleteFriendRequest(model,true);
+                        deleteFriendRequest(model, true);
                     }
                 });
 
@@ -285,7 +285,7 @@ public class FriendRequestActivity extends AppCompatActivity implements IFirebas
             @Override
             public FriendRequestViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
                 View itemView = LayoutInflater.from(viewGroup.getContext())
-                        .inflate(R.layout.layout_friend_request,viewGroup,false);
+                        .inflate(R.layout.layout_friend_request, viewGroup, false);
                 return new FriendRequestViewHolder(itemView);
             }
         };
@@ -301,6 +301,6 @@ public class FriendRequestActivity extends AppCompatActivity implements IFirebas
 
     @Override
     public void onFirebaseLoadFailed(String message) {
-        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

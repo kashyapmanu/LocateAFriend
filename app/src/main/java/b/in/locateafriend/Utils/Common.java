@@ -14,7 +14,7 @@ public class Common {
     public static final String TOKENS = "Tokens";
     public static final String FROM_NAME = "FromName";
     public static final String ACCEPT_LIST = "acceptList";
-    public static final String FROM_UID = "FromUid" ;
+    public static final String FROM_UID = "FromUid";
     public static final String TO_UID = "ToUid";
     public static final String TO_NAME = "ToName";
     public static final String FRIEND_REQUEST = "FriendRequests";
@@ -22,7 +22,7 @@ public class Common {
     public static User loggedUser;
     public static User trakingUser;
 
-    public static IFCMService getFCMService(){
+    public static IFCMService getFCMService() {
         return RetrofitClient.getClient("https://fcm.googleapis.com/")
                 .create(IFCMService.class);
     }

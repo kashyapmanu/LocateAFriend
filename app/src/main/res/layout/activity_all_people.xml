@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
     android:orientation="vertical"
+    android:padding="8dp"
     tools:context=".AllPeopleActivity">
 
     <com.mancj.materialsearchbar.MaterialSearchBar
@@ -20,16 +20,15 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="All Users"
-        android:textStyle="bold"
+        android:layout_gravity="center"
         android:layout_margin="5dp"
-        android:layout_gravity="center"/>
+        android:text="All Users"
+        android:textStyle="bold" />
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/recycler_all_people"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

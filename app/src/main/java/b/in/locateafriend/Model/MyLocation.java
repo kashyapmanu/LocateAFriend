@@ -1,12 +1,12 @@
 package b.in.locateafriend.Model;
 
 public class MyLocation {
-    private int accuracy,altitude,bearing,bearingAccuracyDegrees,speed,speedAccuracyMetersPerSecond,
-    verticalAccuracyMeters;
-    private boolean complete,fromMockProvider;
+    private int accuracy, altitude, bearing, bearingAccuracyDegrees, speed, speedAccuracyMetersPerSecond,
+            verticalAccuracyMeters;
+    private boolean complete, fromMockProvider;
     private String provider;
-    private long time,elapsedRealtimeNanos;
-    private double latitude,longitude;
+    private long time, elapsedRealtimeNanos;
+    private double latitude, longitude;
 
     public MyLocation() {
 

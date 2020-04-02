@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -18,86 +17,82 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dear User"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:text="Dear User" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="These are the  intial builds and thus lack many feature and contains some bugs that may cause inconvenience to you"
-            />
+            android:text="These are the  intial builds and thus lack many feature and contains some bugs that may cause inconvenience to you" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="We apologise for the inconvenience cause and request your feedback"
             android:padding="5dp"
-            android:textColor="@color/colorPrimaryDark"
-            />
-
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pre-release: V0.1.5"/>
-
+            android:text="We apologise for the inconvenience cause and request your feedback"
+            android:textColor="@color/colorPrimaryDark" />
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="* Location Sharing Added"/>
+            android:text="Pre-release: V0.1.5" />
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-----------------------------"/>
+            android:text="* Location Sharing Added" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pre-release: V0.1.5"/>
+            android:text="-----------------------------" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="* Managing Friend Request Added"/>
+            android:text="Pre-release: V0.1.5" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-----------------------------"/>
+            android:text="* Managing Friend Request Added" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pre-release: V0.1.3"/>
+            android:text="-----------------------------" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="* Finding people on server added"/>
+            android:text="Pre-release: V0.1.3" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-----------------------------"/>
+            android:text="* Finding people on server added" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pre-release: V0.1.2"/>
+            android:text="-----------------------------" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="* Authentication builder added"/>
+            android:text="Pre-release: V0.1.2" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-----------------------------"/>
+            android:text="* Authentication builder added" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-----------------------------" />
 
     </LinearLayout>
 </RelativeLayout>

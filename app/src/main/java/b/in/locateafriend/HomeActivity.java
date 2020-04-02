@@ -61,7 +61,7 @@ import b.in.locateafriend.ViewHolder.UserViewHolder;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, IFirebaseLoadDone {
 
-    FirebaseRecyclerAdapter<User, UserViewHolder> adapter,searchAdapter;
+    FirebaseRecyclerAdapter<User, UserViewHolder> adapter, searchAdapter;
     RecyclerView recycler_friend_list;
     IFirebaseLoadDone firebaseLoadDone;
     MaterialSearchBar searchBar;
@@ -112,7 +112,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         setNavigationViewListener();
 
         View headerView = navigationView.getHeaderView(0);
-        TextView txt_User_logged = (TextView)headerView.findViewById(R.id.txt_logged_email);
+        TextView txt_User_logged = (TextView) headerView.findViewById(R.id.txt_logged_email);
         txt_User_logged.setText(Common.loggedUser.getEmail());
 
         //View
@@ -129,8 +129,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 List<String> suggest = new ArrayList<>();
-                for(String search:suggestList){
-                    if(search.toLowerCase().contains(searchBar.getText().toLowerCase())){
+                for (String search : suggestList) {
+                    if (search.toLowerCase().contains(searchBar.getText().toLowerCase())) {
                         suggest.add(search);
                     }
                 }
@@ -145,8 +145,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         searchBar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
             @Override
             public void onSearchStateChanged(boolean enabled) {
-                if(!enabled){
-                    if(adapter!=null){
+                if (!enabled) {
+                    if (adapter != null) {
                         recycler_friend_list.setAdapter(adapter);
                     }
                 }
@@ -168,7 +168,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         recycler_friend_list.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recycler_friend_list.setLayoutManager(layoutManager);
-        recycler_friend_list.addItemDecoration(new DividerItemDecoration(this,((LinearLayoutManager)layoutManager).getOrientation()));
+        recycler_friend_list.addItemDecoration(new DividerItemDecoration(this, ((LinearLayoutManager) layoutManager).getOrientation()));
 
         //Update Location
         //publicLocation = FirebaseDatabase.getInstance().getReference(Common.PUBLIC_LOCATION);
@@ -180,7 +180,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         loadSearchData();
 
 
-
     }
 
     private void loadSearchData() {
@@ -190,7 +189,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 .child(Common.ACCEPT_LIST);
 
         FirebaseRecyclerOptions<User> options = new FirebaseRecyclerOptions.Builder<User>()
-                .setQuery(query,User.class)
+                .setQuery(query, User.class)
                 .build();
 
         searchAdapter = new FirebaseRecyclerAdapter<User, UserViewHolder>(options) {
@@ -203,7 +202,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     public void onItemClickListener(View view, int position) {
                         //Show Tracking
                         Common.trakingUser = model;
-                        startActivity(new Intent(HomeActivity.this,TrackingActivity.class));
+                        startActivity(new Intent(HomeActivity.this, TrackingActivity.class));
 
                     }
                 });
@@ -213,7 +212,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public UserViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
                 View itemView = LayoutInflater.from(viewGroup.getContext())
-                        .inflate(R.layout.layout_user,viewGroup,false);
+                        .inflate(R.layout.layout_user, viewGroup, false);
                 return new UserViewHolder(itemView);
             }
         };
@@ -229,7 +228,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 .child(Common.ACCEPT_LIST);
 
         FirebaseRecyclerOptions<User> options = new FirebaseRecyclerOptions.Builder<User>()
-                .setQuery(query,User.class)
+                .setQuery(query, User.class)
                 .build();
 
         adapter = new FirebaseRecyclerAdapter<User, UserViewHolder>(options) {
@@ -242,7 +241,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     public void onItemClickListener(View view, int position) {
                         //Show Tracking
                         Common.trakingUser = model;
-                        startActivity(new Intent(HomeActivity.this,TrackingActivity.class));
+                        startActivity(new Intent(HomeActivity.this, TrackingActivity.class));
 
                     }
                 });
@@ -252,7 +251,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public UserViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
                 View itemView = LayoutInflater.from(viewGroup.getContext())
-                        .inflate(R.layout.layout_user,viewGroup,false);
+                        .inflate(R.layout.layout_user, viewGroup, false);
                 return new UserViewHolder(itemView);
             }
         };
@@ -264,17 +263,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onResume() {
         super.onResume();
-        if(adapter!=null)
+        if (adapter != null)
             adapter.startListening();
-        if(searchAdapter!=null)
+        if (searchAdapter != null)
             searchAdapter.startListening();
     }
 
     @Override
     protected void onStop() {
-        if(adapter!=null)
+        if (adapter != null)
             adapter.stopListening();
-        if(searchAdapter!=null)
+        if (searchAdapter != null)
             searchAdapter.stopListening();
         super.onStop();
     }
@@ -283,7 +282,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private void updateLocation() {
         buildLocationRequest();
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        fusedLocationProviderClient.requestLocationUpdates(locationRequest,getPendingIntent());
+        fusedLocationProviderClient.requestLocationUpdates(locationRequest, getPendingIntent());
 
     }
 
@@ -291,7 +290,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         //Toast.makeText(this, "here", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, MyLocationReciever.class);
         intent.setAction(MyLocationReciever.ACTION);
-        return PendingIntent.getBroadcast(this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        return PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     private void buildLocationRequest() {
@@ -311,7 +310,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 .startAt(search_value);
 
         FirebaseRecyclerOptions<User> options = new FirebaseRecyclerOptions.Builder<User>()
-                .setQuery(query,User.class)
+                .setQuery(query, User.class)
                 .build();
 
         searchAdapter = new FirebaseRecyclerAdapter<User, UserViewHolder>(options) {
@@ -332,7 +331,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public UserViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
                 View itemView = LayoutInflater.from(viewGroup.getContext())
-                        .inflate(R.layout.layout_user,viewGroup,false);
+                        .inflate(R.layout.layout_user, viewGroup, false);
                 return new UserViewHolder(itemView);
             }
         };
@@ -366,33 +365,32 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case R.id.nav_find_people: {
-                startActivity(new Intent(HomeActivity.this,AllPeopleActivity.class));
+                startActivity(new Intent(HomeActivity.this, AllPeopleActivity.class));
                 break;
             }
-            case R.id.nav_add_people:{
-                startActivity(new Intent(HomeActivity.this,FriendRequestActivity.class));
+            case R.id.nav_add_people: {
+                startActivity(new Intent(HomeActivity.this, FriendRequestActivity.class));
                 break;
             }
-            case R.id.nav_sign_out:{
+            case R.id.nav_sign_out: {
                 Toast.makeText(this, "You will automatically sign out when you clear the app from memory", Toast.LENGTH_SHORT).show();
                 break;
             }
-            case R.id.nav_about_us:{
-                startActivity(new Intent(HomeActivity.this,AboutUs.class));
+            case R.id.nav_about_us: {
+                startActivity(new Intent(HomeActivity.this, AboutUs.class));
                 break;
             }
-            case R.id.nav_feedback:{
-                startActivity(new Intent(HomeActivity.this,FeedBackActivity.class));
+            case R.id.nav_feedback: {
+                startActivity(new Intent(HomeActivity.this, FeedBackActivity.class));
                 break;
             }
-            case R.id.nav_invite:{
-                Intent i=new Intent(Intent.ACTION_SEND);
+            case R.id.nav_invite: {
+                Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("text/plain");
-                i.putExtra(Intent.EXTRA_TEXT,"Check Out this GPS Tracker.I use it to track my family and Friends.To join me download this app: https://appdistribution.firebase.dev/i/2yRVXqZE");
-                startActivity(i.createChooser(i,"Share using: "));
+                i.putExtra(Intent.EXTRA_TEXT, "Check Out this GPS Tracker.I use it to track my family and Friends.To join me download this app: https://appdistribution.firebase.dev/i/2yRVXqZE");
+                startActivity(i.createChooser(i, "Share using: "));
                 break;
             }
         }
@@ -407,6 +405,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onFirebaseLoadFailed(String message) {
-        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

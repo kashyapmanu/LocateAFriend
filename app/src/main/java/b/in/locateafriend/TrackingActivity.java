@@ -70,7 +70,7 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-       //Enabling map zoom
+        //Enabling map zoom
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().setZoomGesturesEnabled(true);
 
@@ -79,17 +79,16 @@ public class TrackingActivity extends FragmentActivity implements OnMapReadyCall
 
     @Override
     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-        if(dataSnapshot.getValue() != null)
-        {
+        if (dataSnapshot.getValue() != null) {
             MyLocation location = dataSnapshot.getValue(MyLocation.class);
 
             //Add Marker
-            LatLng userMarker = new LatLng(location.getLatitude(),location.getLongitude());
+            LatLng userMarker = new LatLng(location.getLatitude(), location.getLongitude());
             mMap.addMarker(new MarkerOptions().position(userMarker)
-            .title(Common.trakingUser.getEmail())
-            .snippet(Common.getDateFormatted(Common.convertTimeStampToDate(location.getTime()))));
+                    .title(Common.trakingUser.getEmail())
+                    .snippet(Common.getDateFormatted(Common.convertTimeStampToDate(location.getTime()))));
 
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userMarker,16f));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userMarker, 16f));
         }
 
     }

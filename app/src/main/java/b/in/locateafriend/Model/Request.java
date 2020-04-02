@@ -4,9 +4,9 @@ import java.util.Map;
 
 public class Request {
     public String to;
-    public Map<String,String> data;
+    public Map<String, String> data;
 
-    public Request(){
+    public Request() {
 
     }
 

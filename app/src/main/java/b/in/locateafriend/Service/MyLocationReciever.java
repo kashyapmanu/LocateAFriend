@@ -17,7 +17,7 @@ import io.paperdb.Paper;
 public class MyLocationReciever extends BroadcastReceiver {
     public static final String ACTION = "b.in.locateafriend.UPDATE_LOCATION";
 
-    DatabaseReference publicLocation ;
+    DatabaseReference publicLocation;
     String uid;
 
     public MyLocationReciever() {
@@ -32,24 +32,19 @@ public class MyLocationReciever extends BroadcastReceiver {
         uid = Paper.book().read(Common.USER_UID_SAVE_KEY);
 
 
-
-        if(intent != null)
-        {
+        if (intent != null) {
 
             final String action = intent.getAction();
-            if(action.equals(ACTION))
-            {
+            if (action.equals(ACTION)) {
                 LocationResult result = LocationResult.extractResult(intent);
 
-                if(result!=null)
-                {
+                if (result != null) {
                     Location location = result.getLastLocation();
-                    if(Common.loggedUser != null) //App in foreground
+                    if (Common.loggedUser != null) //App in foreground
                     {
-                        Log.i("Location","Location");
+                        Log.i("Location", "Location");
                         publicLocation.child(Common.loggedUser.getUid()).setValue(location);
-                    }
-                    else //App is killed
+                    } else //App is killed
                     {
                         publicLocation.child(uid).setValue(location);
                     }
