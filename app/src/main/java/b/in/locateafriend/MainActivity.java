@@ -1,10 +1,5 @@
 package b.in.locateafriend;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +7,10 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
@@ -43,7 +42,7 @@ import io.paperdb.Paper;
 public class MainActivity extends AppCompatActivity {
 
     DatabaseReference user_information;
-    private  static final int MY_REQUEST_CODE = 1234;
+    private static final int MY_REQUEST_CODE = 1234;
     List<AuthUI.IdpConfig> providers;
     private boolean Islogin = true;
 
@@ -51,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
-
 
 
         Paper.init(this);
@@ -77,18 +75,18 @@ public class MainActivity extends AppCompatActivity {
 
                         //if(Islogin)
                         //{   // condition true means user is already login
-                           // startActivity(new Intent(MainActivity.this,HomeActivity.class));
-                            //finish();
+                        // startActivity(new Intent(MainActivity.this,HomeActivity.class));
+                        //finish();
 
                         //}
                         //else
-                            showSignInOptions();
+                        showSignInOptions();
 
                     }
 
                     @Override
                     public void onPermissionDenied(PermissionDeniedResponse response) {
-                        Toast.makeText(getApplicationContext(),"Permission not enabled",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Permission not enabled", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -100,20 +98,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showSignInOptions() {
-
-
         startActivityForResult(AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
-                .build(),MY_REQUEST_CODE);
+                .build(), MY_REQUEST_CODE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == MY_REQUEST_CODE){
+        if (requestCode == MY_REQUEST_CODE) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
-            if(resultCode == RESULT_OK){
+            if (resultCode == RESULT_OK) {
                 final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
                 //Checking of the user is already registered
@@ -122,23 +118,20 @@ public class MainActivity extends AppCompatActivity {
                         .addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if(dataSnapshot.getValue() == null) //User is not present
+                                if (dataSnapshot.getValue() == null) //User is not present
                                 {
-                                    if(!dataSnapshot.child(firebaseUser.getUid()).exists())
-                                    {
-                                        Common.loggedUser = new User(firebaseUser.getUid(),firebaseUser.getEmail());
+                                    if (!dataSnapshot.child(firebaseUser.getUid()).exists()) {
+                                        Common.loggedUser = new User(firebaseUser.getUid(), firebaseUser.getEmail());
 
                                         //Adding to the database
                                         user_information.child(Common.loggedUser.getUid()).setValue(Common.loggedUser);
                                     }
-                                }
-                                else
-                                {
+                                } else {
                                     Common.loggedUser = dataSnapshot.child(firebaseUser.getUid()).getValue(User.class);
                                 }
 
                                 //Save the Uid to storage and update the location from background
-                                Paper.book().write(Common.USER_UID_SAVE_KEY,Common.loggedUser.getUid());
+                                Paper.book().write(Common.USER_UID_SAVE_KEY, Common.loggedUser.getUid());
                                 updateToken(firebaseUser);
                                 setupUI();
                             }
@@ -157,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefs.edit().putBoolean("Islogin", Islogin).commit(); // islogin is a boolean value of your login status
 
-        startActivity(new Intent(MainActivity.this,Welcome.class));
+        startActivity(new Intent(MainActivity.this, Welcome.class));
         finish();
     }
 
@@ -174,12 +167,12 @@ public class MainActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(),""+e.getMessage(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "" + e.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
 
     public void ToHome(View view) {
-        startActivity(new Intent(MainActivity.this,HomeActivity.class));
+        startActivity(new Intent(MainActivity.this, HomeActivity.class));
     }
 }

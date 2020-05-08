@@ -32,6 +32,11 @@ public class AboutUs extends AppCompatActivity {
                 .addFacebook("manjunathapatkar")
                 .addGitHub("ManjunathaPatkar")
                 .addInstagram("manjunathapatkar")
+                .addGroup("Oliver B")
+                .addEmail("manjunathapatkar150@gmail.com")
+                .addFacebook("manjunathapatkar")
+                .addGitHub("ManjunathaPatkar")
+                .addInstagram("manjunathapatkar")
                 .create();
 
         setContentView(aboutPage);
